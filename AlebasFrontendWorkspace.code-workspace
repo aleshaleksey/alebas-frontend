@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\..\\World Master\\world-master"
 		}
 	],
 	"settings": {}
