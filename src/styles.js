@@ -232,6 +232,18 @@ border-radius: 0px 12px 12px 0px;
    color: rgba(255,255,255,0.6);
 }
 `;
+//=========================TABLE TAGS=========================
+export const Table = styled.table`
+    border: 2px groove black;
+`;
+
+export const TD = styled.td`
+    border: 1px solid black;
+`;
+
+export const TR = styled.tr`
+    border: 1px solid black;
+`;
 
 //=========================HEADING TAGS=========================
 //CSS for a H1 tag (title)

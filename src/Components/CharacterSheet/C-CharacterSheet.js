@@ -10,6 +10,9 @@ import {
     EngravingInput,
     Spacer,
     Splitter,
+    Table,
+    TD,
+    TR,
 } from "../../styles.js"
 // ===================== =====================
 const Character_Sheet = () => {
@@ -39,47 +42,49 @@ return(
     <Header2>Truth Tables</Header2>
     <Spacer/>
 
-    <table>
+    <Table>
     <tr><td colspan = "2"><Header3>From "Character Basics"</Header3></td></tr>
-        <tr>
+        <TR>
             <th>useState</th>
             <th>Contains</th>
-        </tr>
-        <tr>
-            <td>Game Name</td>
-            <td>{gameName}</td>
-        </tr>
-        <tr>
-            <td>System Name</td>
-            <td>{systemName}</td>
-        </tr>
-        <tr>
-            <td>Player Name</td>
-            <td>{playerName}</td>
-        </tr>
-        <tr>
-            <td>Character Name</td>
-            <td>{characterName}</td>
-        </tr>
-        <tr>
-            <td>Character Race</td>
-            <td>{characterRace}</td>
-        </tr>
-        <tr>
-            <td>Character Background</td>
-            <td>{characterBackground}</td>
-        </tr>
-        <tr>
-            <td>Character Alignment</td>
-            <td>{characterAlignment}</td>
-        </tr>
-        <tr>
-            <td>Character Experience</td>
-            <td>{characterExperience}</td>
-        </tr>
+        </TR>
+        <TR>
+            <TD>gameName</TD>
+            <TD>{gameName}</TD>
+        </TR>
+        <TR>
+            <TD>systemName</TD>
+            <TD>{systemName}</TD>
+        </TR>
+        <TR>
+            <TD>playerName</TD>
+            <TD>{playerName}</TD>
+        </TR>
+        <TR>
+            <TD>characterName</TD>
+            <TD>{characterName}</TD>
+        </TR>
+        <TR>
+            <TD>characterRace</TD>
+            <TD>{characterRace}</TD>
+        </TR>
+        <TR>
+            <TD>characterBackground</TD>
+            <TD>{characterBackground}</TD>
+        </TR>
+        <TR>
+            <TD>characterAlignment</TD>
+            <TD>{characterAlignment}</TD>
+        </TR>
+        <TR>
+            <TD>characterExperience</TD>
+            <TD>{characterExperience}</TD>
+        </TR>
 
-    </table>
+    </Table>
+       
         <Splitter/>
+    
     <table>
     <tr>
         <td colspan = "2">
