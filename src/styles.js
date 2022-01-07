@@ -40,8 +40,8 @@ export const MainWrap = styled.div`
 // InnerWrap is a wrapper to contain individual elements in a component
 export const InnerWrap = styled.div`
 
-    background: linear-gradient(to bottom, rgba(145,85,77,0.7), rgba(185, 156, 107, 0.5));
-    border: solid 2px rgba(150,90,85,0.7);
+    background:  ${props => props.inputColor || "linear-gradient(to bottom, rgba(145,85,77,0.7), rgba(185, 156, 107, 0.5))"};
+    border:  ${props => props.inputBorder || "solid 2px rgba(150,90,85,0.7)"};
     border-radius: 8px;
 
     display: flex;
@@ -183,13 +183,55 @@ background-size: cover;
 border: solid black;
 padding: 5px;
 margin: 10px;
-`
+`;
 
-//empty div meant to space elements
+//empty div meant to space elements horizontal rule
 export const Spacer = styled.div`
     height: 0px;
-    flex-basis: 100%;
-`
+    flex-basis: 95%;
+    border: solid 2px rgba(10,10,10,0.2);
+    border-radius: 5px;
+    margin-bottom: ${props => props.inputBottomMargin || "0px"};
+    margin-top: ${props => props.inputTopMargin || "0px"};
+`;
+
+//empty div meant to space elements with a vertical rule
+export const Splitter = styled.div`
+    //declare a tag with "inputHeight" to set a custom height for the rule
+    height: ${props => props.inputHeight || "300px"};
+    
+    border: solid 2px rgba(10,10,10,0.2);
+    border-radius: 5px;
+    margin-left: ${props => props.inputLeftMargin || "0px"};
+    margin-right: ${props => props.inputRightMargin || "0px"};
+`;
+
+
+//rules for input boxes (make em bigger and have a left margin)
+export const EngravingInput = styled.input`
+width: ${props => props.inputWidth || "130px"};
+
+margin-left: 20px;
+height: 30px;
+
+text-align: center;
+font-family: calibri;
+font-size: 17px;
+
+background-color: rgba(100,60,60,0.5);
+color: white;
+
+box-shadow: 1px 1px 5px rgba(220,220,220, 0.5);
+border-radius: 0px 12px 12px 0px;
+
+::placeholder,
+::-webkit-input-placeholder {
+  color: rgba(255,255,255,0.6);
+}
+:-ms-input-placeholder {
+   color: rgba(255,255,255,0.6);
+}
+`;
 
 //=========================HEADING TAGS=========================
 //CSS for a H1 tag (title)
