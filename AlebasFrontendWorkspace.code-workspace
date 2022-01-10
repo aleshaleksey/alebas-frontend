@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "..\\..\\World Master\\world-master"
+		},
+		{
+			"path": "..\\azchar\\azchar-server"
 		}
 	],
 	"settings": {}

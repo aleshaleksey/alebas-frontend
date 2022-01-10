@@ -171,6 +171,19 @@ export const Engraving = styled.div`
     text-align: center;
 `;
 
+//Element to contain attributes (two numbers, stacked in a column)
+export const AttributeFrame = styled.div`
+align-items: center;
+justify-content: space-apart;
+width: ${props => props.inputWidth || "100px"};
+height: ${props => props.inputHeight || "100px"};
+margin-left: 5px;
+margin-right: 5px;
+background: rgba(200,200,200,0.4);
+border: solid 2px brown;
+border-radius: ${props => props.inputRadius || "10px"};
+`;
+
 //Element to contain a portrait picture
 export const PortraitFrame = styled.div`
 width: 170px;
@@ -188,7 +201,7 @@ margin: 10px;
 //empty div meant to space elements horizontal rule
 export const Spacer = styled.div`
     height: 0px;
-    flex-basis: 95%;
+    flex-basis: ${props => props.inputFlexBasis || "95%"};
     border: solid 2px rgba(10,10,10,0.2);
     border-radius: 5px;
     margin-bottom: ${props => props.inputBottomMargin || "0px"};
@@ -209,10 +222,11 @@ export const Splitter = styled.div`
 
 //rules for input boxes (make em bigger and have a left margin)
 export const EngravingInput = styled.input`
-width: ${props => props.inputWidth || "130px"};
+width: ${props => props.inputWidth || "30px"};
+height: ${props => props.inputHeight || "30px"};
 
-margin-left: 20px;
-height: 30px;
+margin: ${props => props.inputMargin || "0px 0px 0px 10px"};
+padding: ${props => props.inputpadding || "0px"};
 
 text-align: center;
 font-family: calibri;
@@ -222,7 +236,7 @@ background-color: rgba(100,60,60,0.5);
 color: white;
 
 box-shadow: 1px 1px 5px rgba(220,220,220, 0.5);
-border-radius: 0px 12px 12px 0px;
+border-radius: ${props => props.inputBorderRadius || "0px 12px 12px 0px"};
 
 ::placeholder,
 ::-webkit-input-placeholder {
@@ -231,6 +245,25 @@ border-radius: 0px 12px 12px 0px;
 :-ms-input-placeholder {
    color: rgba(255,255,255,0.6);
 }
+`;
+
+//rules for input boxes (make em bigger and have a left margin)
+export const AttributeInput = styled.input`
+width: 20px;
+height: auto;
+
+margin: 5px;
+padding: 8px;
+
+text-align: center;
+font-family: calibri;
+font-size: 17px;
+
+background-color: rgba(100,60,60,0.5);
+color: white;
+
+box-shadow: 1px 1px 5px rgba(220,220,220, 0.5);
+border-radius: 10px;
 `;
 //=========================TABLE TAGS=========================
 export const Table = styled.table`
