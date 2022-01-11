@@ -216,7 +216,7 @@ padding: 5px;
 margin: 10px;
 `;
 
-//empty div meant to space elements horizontal rule
+//empty div meant to space elements with a horizontal rule
 export const Spacer = styled.div`
     height: 0px;
     flex-basis: ${props => props.inputFlexBasis || "95%"};
@@ -275,7 +275,7 @@ width: ${props => props.inputWidth || "30px"};
 height: ${props => props.inputHeight || "30px"};
 
 margin: ${props => props.inputMargin || "0px"};
-padding: ${props => props.inputPadding || "0px"};
+padding: ${props => props.inputPadding || "2px"};
 
 text-align: center;
 font-family: calibri;

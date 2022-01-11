@@ -168,22 +168,55 @@ return(
        
         <Splitter/>
     
-    <table>
-    <tr>
-        <td colspan = "2">
-            <Header3>
-                From "Character Attributes"
-            </Header3>
-        </td>
-    </tr>
-    
-    <tr>
-        <th>useState</th>
-        <th>Contains</th>
-    </tr>
+ 
+        <Table>
+    <tr><td colSpan = "2"><Header3>From "Character Info"</Header3></td></tr>
+    {/* charLevel: 1,
+            charProficiency: 0,
+            charInitiative: 0,
+            charAC: 0,
+            charHP: 0,
+            charSpeed: 30,
+            charPassPerc: 10 */}
+      
+       <TR>
+            <th>useState</th>
+            <th>Contains</th>
+        </TR>
+        <TR>
+            <TD>charLevel</TD>
+            <TD>{charInfo.charLevel}</TD>
+        </TR>
+        <TR>
+            <TD>charProficiency</TD>
+            <TD>{charInfo.charProficiency}</TD>
+        </TR>
+        <TR>
+            <TD>charInitiative</TD>
+            <TD>{charInfo.charInitiative}</TD>
+        </TR>
+        <TR>
+            <TD>charAC</TD>
+            <TD>{charInfo.charInitiative}</TD>
+        </TR>
+        <TR>
+            <TD>charHP</TD>
+            <TD>{charInfo.charHP}</TD>
+        </TR>
+        <TR>
+            <TD>charSpeed</TD>
+            <TD>{charInfo.charSpeed}</TD>
+        </TR>
+        <TR>
+            <TD>charPassPerc</TD>
+            <TD>{charInfo.charPassPerc}</TD>
+        </TR>
+        <TR>
+            <TD>characterExperience</TD>
+            <TD>{characterExperience}</TD>
+        </TR>
 
-
-    </table>
+    </Table>
 
 </InnerWrap>
 
@@ -319,13 +352,13 @@ return(
                     </AttributeFrame>
                 </InnerWrap>
 
-                {/* [I contain essential info] */}
-                <InnerWrap flexRow>
-
+<InnerWrap flexRow>
 <Header4>Level</Header4>
 <Header4>Proficiency</Header4> 
 <Header4>Initiative</Header4> 
-
+<Header4>AC</Header4> 
+<Header4>HP</Header4> 
+<Header4>Passive Perception</Header4> 
 <Spacer inputBottomMargin="5px"/>
 {/* CHARACTER LEVEL */} 
                     <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -378,9 +411,74 @@ return(
                             </EngravingDisplay>
                         </InfoFrame>
                     </AttributeFrame>
+{/* CHARACTER AC */}    
+<AttributeFrame 
+                        inputJustifyContent="center" 
+                        inputWidth="auto" 
+                        inputHeight="auto"
+                        >
+                        <InfoFrame 
+                            inputWidth="40px" 
+                            inputHeight="40px"
+                            inputRadius="20px 20px 100px 100px">
+                            <EngravingDisplay
+                                name="char"
+                                inputWidth="35px" 
+                                inputHeight="35px" 
+                                inputBorderRadius="0px 0px 100px 100px" 
+                                
+                                >                            
+                                {charInfo.charAC}
+                            </EngravingDisplay>
+                        </InfoFrame>
+                    </AttributeFrame>
+{/* CHARACTER HP */}    
+<AttributeFrame 
+                        inputJustifyContent="center" 
+                        inputWidth="auto" 
+                        inputHeight="auto"
+                        >
+                        <InfoFrame 
+                            inputWidth="40px" 
+                            inputHeight="40px"
+                            inputRadius="20px 20px 100px 100px">
+                            <EngravingDisplay
+                                name="char"
+                                inputWidth="35px" 
+                                inputHeight="35px" 
+                                inputBorderRadius="0px 0px 100px 100px" 
+                                
+                                >                            
+                                {charInfo.charHP}
+                            </EngravingDisplay>
+                        </InfoFrame>
+                    </AttributeFrame>
+{/* CHARACTER Passive Perception */}    
+<AttributeFrame 
+                        inputJustifyContent="center" 
+                        inputWidth="auto" 
+                        inputHeight="auto"
+                        >
+                        <InfoFrame 
+                            inputWidth="40px" 
+                            inputHeight="40px"
+                            inputRadius="20px 20px 100px 100px">
+                            <EngravingDisplay
+                                name="char"
+                                inputWidth="35px" 
+                                inputHeight="35px" 
+                                inputBorderRadius="0px 0px 100px 100px" 
+                                
+                                >                            
+                                {charInfo.charPassPerc}
+                            </EngravingDisplay>
+                        </InfoFrame>
+                    </AttributeFrame>
 
                 </InnerWrap>                
             </InnerWrap>
+
+
                 
     
                 
