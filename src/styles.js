@@ -184,6 +184,21 @@ border: solid 2px brown;
 border-radius: ${props => props.inputRadius || "10px"};
 `;
 
+//Element to contain useful info. Circular display, one display element
+export const InfoFrame = styled.div`
+align-items: center;
+justify-content: center;
+width: ${props => props.inputWidth || "50px"};
+height: ${props => props.inputHeight || "50px"};
+padding: 5px;
+margin: 5px 5px 5px 5px;
+
+background: rgba(10,10,190,1);
+border: solid 2px brown;
+border-radius: ${props => props.inputRadius || "100%"};
+`;
+
+
 //Element to contain a portrait picture
 export const PortraitFrame = styled.div`
 width: 170px;
@@ -232,7 +247,7 @@ text-align: center;
 font-family: calibri;
 font-size: 17px;
 
-background-color: rgba(100,60,60,0.5);
+background-color: ${props => props.inputBackground || "rgba(100,60,60,0.5)"};
 color: white;
 
 box-shadow: 1px 1px 5px rgba(220,220,220, 0.5);

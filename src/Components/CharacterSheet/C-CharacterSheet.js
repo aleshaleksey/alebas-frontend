@@ -15,6 +15,7 @@ import {
     TR,
     AttributeFrame,
     AttributeInput,
+    InfoFrame,
 } from "../../styles.js"
 // =====================COMPONENT=====================
 const Character_Sheet = () => {
@@ -31,7 +32,7 @@ const Character_Sheet = () => {
     const [characterAlignment, set_characterAlignment] = useState("");
     const [characterExperience, set_characterExperience] = useState(0);
 
-    //useStates for attributes and bonuses
+    //useState for attributes and associated bonuses
     const [charAttributes, set_CharAttributes] = useState(
         {
           charSTR: 0,
@@ -47,23 +48,31 @@ const Character_Sheet = () => {
           charCHA: 0,
           charCHAmod: 0
         });
+  
+//useState for character info. Level, proficiency, hp and etc
+    const [charInfo, set_CharInfo] = useState(
+        {
+          charLevel: 1,
+          charProficiency: 0,
+        //   (2 + ((charinfo.harLevel-1)/4)),
+          charAC: 0,
+        //   (10+(charAttributes.charDEXmod)),
+          charHP: 0,
+        //   (charLevel * 10),
+          charSpeed: 30,
+          charPassPerc: 10
+        });
     
-    //function to handle changes to the 'systemState' useStates
-    //as it uses multiple states
+    //function to handle changes to the 'charAttribute' useStates as it uses multiple states
     const handle_attr_Change = (t) => {
         let value = t.value;
-
-        console.log("\nPRE UPDATE → charAttributes contains: ", charAttributes)
-
         set_CharAttributes(
             {
                 ...charAttributes,
                 [t.name]: value,
                 [t.name+"mod"]: Math.floor(((value)-10)/2)
             }
-
         );
-        console.log("POST UPDATE → charAttributes contains: ", charAttributes,"\n");
     }
 
     //function to calculate an attributes bonus
@@ -289,7 +298,6 @@ return(
                         <Spacer inputFlexBasis="20px" />
                         <>WIS</>
                     </AttributeFrame>
-
 {/* CHARISMA ATTRIBUTE */}
                 <AttributeFrame inputWidth="auto" inputHeight="auto">
                         <AttributeInput 
@@ -304,9 +312,21 @@ return(
                     </AttributeFrame>
                 </InnerWrap>
 
-                [I contain essential info]
-                
-                </InnerWrap>
+                {/* [I contain essential info] */}
+                <InnerWrap flexRow>
+                    
+                    {/* Proficiency element */}
+                    <AttributeFrame inputWidth="auto" inputHeight="auto">
+                        <InfoFrame inputWidth="50px" inputHeight="50px">
+                            <EngravingInput inputWidth="45px" inputHeight="45px" inputBorderRadius="100%" inputMargin="1px">
+
+                            </EngravingInput>
+                        </InfoFrame>
+                        Level
+                    </AttributeFrame>
+
+                </InnerWrap>                
+            </InnerWrap>
                 
     
                 
