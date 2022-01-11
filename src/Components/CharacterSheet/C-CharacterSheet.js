@@ -5,9 +5,11 @@ import {
     InnerWrap,
     Header2,
     Header3,
+    Header4,
     ButtonStyle,
     Engraving,
     EngravingInput,
+    EngravingDisplay,
     Spacer,
     Splitter,
     Table,
@@ -52,18 +54,16 @@ const Character_Sheet = () => {
 //useState for character info. Level, proficiency, hp and etc
     const [charInfo, set_CharInfo] = useState(
         {
-          charLevel: 1,
-          charProficiency: 0,
-        //   (2 + ((charinfo.harLevel-1)/4)),
-          charAC: 0,
-        //   (10+(charAttributes.charDEXmod)),
-          charHP: 0,
-        //   (charLevel * 10),
-          charSpeed: 30,
-          charPassPerc: 10
+            charLevel: 1,
+            charProficiency: 0,
+            charInitiative: 0,
+            charAC: 0,
+            charHP: 0,
+            charSpeed: 30,
+            charPassPerc: 10
         });
     
-    //function to handle changes to the 'charAttribute' useStates as it uses multiple states
+//function to handle changes to the 'charAttribute' useStates as it uses multiple states
     const handle_attr_Change = (t) => {
         let value = t.value;
         set_CharAttributes(
@@ -73,6 +73,25 @@ const Character_Sheet = () => {
                 [t.name+"mod"]: Math.floor(((value)-10)/2)
             }
         );
+    }
+//function to handle changes to the 'charInfo' useStates as it uses multiple states
+    const handle_info_Change = (i) => {
+        let value = i.value;
+        console.log("======================================")
+        console.log("Entered 'handle_info_Change function!")
+        console.log("The value of 'i.value' is: ", value)
+        set_CharInfo(
+            {
+                ...charInfo,
+                [i.name+"Level"]: value,
+                [i.name+"Proficiency"]: Math.floor(2+((value -1)/4)),
+                [i.name+"Initiative"]: (charAttributes.charDEXmod),
+                [i.name+"AC"]: (10 + (charAttributes.charDEXmod)),
+                [i.name+"HP"]: (10 * (value)),
+                [i.name+"PassPerc"]: (10 + (charAttributes.charWISmod)),
+            }
+        );
+        console.log("After update, charInfo contains:",charInfo);
     }
 
     //function to calculate an attributes bonus
@@ -245,10 +264,8 @@ return(
                             name="charSTR" 
                             value={charAttributes.charSTR} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charSTRmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>STR</>
+                        <Header4>STR</Header4>
                     </AttributeFrame>
 {/* DEXTERITY ATTRIBUTE */}
                     <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -257,10 +274,8 @@ return(
                             name="charDEX" 
                             value={charAttributes.charDEX} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charDEXmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>DEX</>
+                        <Header4>DEX</Header4>
                     </AttributeFrame>
 {/* CONSTITUTION ATTRIBUTE */}
                     <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -269,10 +284,8 @@ return(
                             name="charCON" 
                             value={charAttributes.charCON} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charCONmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>CON</>
+                        <Header4>CON</Header4>
                     </AttributeFrame>
 {/* INTELLIGENCE ATTRIBUTE */}
                     <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -281,10 +294,8 @@ return(
                             name="charINT" 
                             value={charAttributes.charINT} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charINTmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>INT</>
+                        <Header4>INT</Header4>
                     </AttributeFrame>
 {/* WISDOM ATTRIBUTE */}
                 <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -293,10 +304,8 @@ return(
                             name="charWIS" 
                             value={charAttributes.charWIS} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charWISmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>WIS</>
+                        <Header4>WIS</Header4>
                     </AttributeFrame>
 {/* CHARISMA ATTRIBUTE */}
                 <AttributeFrame inputWidth="auto" inputHeight="auto">
@@ -305,24 +314,69 @@ return(
                             name="charCHA" 
                             value={charAttributes.charCHA} 
                             onChange={(e) => handle_attr_Change(e.target)}/>
-                        <Spacer />
                         <>{charAttributes.charCHAmod}</>
-                        <Spacer inputFlexBasis="20px" />
-                        <>CHA</>
+                        <Header4>CHA</Header4>
                     </AttributeFrame>
                 </InnerWrap>
 
                 {/* [I contain essential info] */}
                 <InnerWrap flexRow>
-                    
-                    {/* Proficiency element */}
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <InfoFrame inputWidth="50px" inputHeight="50px">
-                            <EngravingInput inputWidth="45px" inputHeight="45px" inputBorderRadius="100%" inputMargin="1px">
 
-                            </EngravingInput>
+<Header4>Level</Header4>
+<Header4>Proficiency</Header4> 
+<Header4>Initiative</Header4> 
+
+<Spacer inputBottomMargin="5px"/>
+{/* CHARACTER LEVEL */} 
+                    <AttributeFrame inputWidth="auto" inputHeight="auto">
+                        <InfoFrame inputWidth="40px" inputHeight="40px">
+                            <EngravingInput 
+                            type= "text"
+                            name="char"
+                            value={charInfo.charLevel}
+                            onChange={(e) => handle_info_Change(e.target)}
+                            inputWidth="35px" 
+                            inputHeight="35px" 
+                            inputBorderRadius="100%" 
+                            inputMargin="1px" />                            
                         </InfoFrame>
-                        Level
+                        
+                    </AttributeFrame>
+{/* CHARACTER PROFICIENCY */}    
+                    <AttributeFrame 
+                        inputJustifyContent="center" 
+                        inputWidth="auto" 
+                        inputHeight="auto">
+                        <InfoFrame 
+                            inputWidth="40px" 
+                            inputHeight="40px">
+                            <EngravingDisplay
+                                name="char"
+                                inputWidth="35px" 
+                                inputHeight="35px" 
+                                inputBorderRadius="100%" 
+                                >                            
+                                {charInfo.charProficiency}
+                            </EngravingDisplay>
+                        </InfoFrame>
+                    </AttributeFrame>
+{/* CHARACTER INITIATIVE */}    
+<AttributeFrame 
+                        inputJustifyContent="center" 
+                        inputWidth="auto" 
+                        inputHeight="auto">
+                        <InfoFrame 
+                            inputWidth="40px" 
+                            inputHeight="40px">
+                            <EngravingDisplay
+                                name="char"
+                                inputWidth="35px" 
+                                inputHeight="35px" 
+                                inputBorderRadius="100%" 
+                                >                            
+                                {charInfo.charInitiative}
+                            </EngravingDisplay>
+                        </InfoFrame>
                     </AttributeFrame>
 
                 </InnerWrap>                

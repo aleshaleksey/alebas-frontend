@@ -173,8 +173,10 @@ export const Engraving = styled.div`
 
 //Element to contain attributes (two numbers, stacked in a column)
 export const AttributeFrame = styled.div`
-align-items: center;
-justify-content: space-apart;
+display: flex;
+flex-direction: column;
+align-items: ${props => props.inputAlignItems || "center"};
+justify-content: ${props => props.inputJustifyContent || "space-apart"};
 width: ${props => props.inputWidth || "100px"};
 height: ${props => props.inputHeight || "100px"};
 margin-left: 5px;
@@ -186,6 +188,7 @@ border-radius: ${props => props.inputRadius || "10px"};
 
 //Element to contain useful info. Circular display, one display element
 export const InfoFrame = styled.div`
+display: flex;
 align-items: center;
 justify-content: center;
 width: ${props => props.inputWidth || "50px"};
@@ -262,6 +265,32 @@ border-radius: ${props => props.inputBorderRadius || "0px 12px 12px 0px"};
 }
 `;
 
+//rules for a standard display (contains text that cant be directly edited)
+export const EngravingDisplay = styled.p`
+display: flex;
+align-items: center;
+justify-content: center;  
+
+width: ${props => props.inputWidth || "30px"};
+height: ${props => props.inputHeight || "30px"};
+
+margin: ${props => props.inputMargin || "0px"};
+padding: ${props => props.inputPadding || "0px"};
+
+text-align: center;
+font-family: calibri;
+font-size: 17px;
+
+background-color: ${props => props.inputBackground || "rgba(100,60,60,0.4)"};
+color: white;
+
+border-radius: ${props => props.inputBorderRadius || "0px"};
+
+&:hover {
+    background: rgba(120,80,80,0.8);
+}
+`;
+
 //rules for input boxes (make em bigger and have a left margin)
 export const AttributeInput = styled.input`
 width: 20px;
@@ -328,4 +357,14 @@ export const Header3 = styled.h3`
     margin: 5px;
 `;
 
+//this is a h4 style
+export const Header4 = styled.h4`
+    color: white;
+    text-shadow: rgb(50, 50, 50) 1px 1px 1px;
+
+    font-family: Cambria;
+    font-variant: small-caps;
+
+    margin: 5px;
+`;
 //=========================OTHER THINGS=========================
