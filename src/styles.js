@@ -65,6 +65,8 @@ export const InnerWrap = styled.div`
     ${props => props.flexRow && css`
         display: flex;
         flex-direction: row;
+        height: ${props => props.inputHeight || "auto"};
+        width: ${props => props.inputWidth || "auto"};
     `}
 
 // Additional rules for if an 'Innerwrap' section that has the keyword 'flexColumn' in its declaration
@@ -196,9 +198,13 @@ height: ${props => props.inputHeight || "50px"};
 padding: 5px;
 margin: 5px 5px 5px 5px;
 
-background: rgba(10,10,190,1);
+background: rgba(10,10,150,0.91);
 border: solid 2px brown;
 border-radius: ${props => props.inputRadius || "100%"};
+
+&:hover {
+    background: rgba(120,80,80,0.8);
+}
 `;
 
 
@@ -281,14 +287,11 @@ text-align: center;
 font-family: calibri;
 font-size: 17px;
 
-background-color: ${props => props.inputBackground || "rgba(100,60,60,0.4)"};
+
 color: white;
 
 border-radius: ${props => props.inputBorderRadius || "0px"};
 
-&:hover {
-    background: rgba(120,80,80,0.8);
-}
 `;
 
 //rules for input boxes (make em bigger and have a left margin)

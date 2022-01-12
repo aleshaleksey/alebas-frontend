@@ -34,6 +34,18 @@ const Character_Sheet = () => {
     const [characterAlignment, set_characterAlignment] = useState("");
     const [characterExperience, set_characterExperience] = useState(0);
 
+    const [charEssentials, set_CharEssentials] = useState(
+        {
+            charPlayerName: "",
+            charCharacter: "",
+            charRace: "",
+            charClass: "",
+            charLevel: 0,
+            charBackground: "",
+            charAlignment: "",
+            charExperience: 0,
+        });
+
     //useState for attributes and associated bonuses
     const [charAttributes, set_CharAttributes] = useState(
         {
@@ -73,6 +85,18 @@ const Character_Sheet = () => {
                 [t.name+"mod"]: Math.floor(((value)-10)/2)
             }
         );
+
+    //function to handle changes to the 'charAttribute' useStates as it uses multiple states
+    const handle_attr_Change = (t) => {
+        let value = t.value;
+        set_CharAttributes(
+            {
+                ...charAttributes,
+                [t.name]: value,
+                [t.name+"mod"]: Math.floor(((value)-10)/2)
+            }
+        );
+
     }
 //function to handle changes to the 'charInfo' useStates as it uses multiple states
     const handle_info_Change = (i) => {
@@ -94,34 +118,22 @@ const Character_Sheet = () => {
         console.log("After update, charInfo contains:",charInfo);
     }
 
-    //function to calculate an attributes bonus
-    const calcBonus = (input) => {
-        try{
-            let result = (input - 10)/2;
-            console.log("Calc bonus was called.(", input, "-10 ) / 2 =", result);
-            return result;
-        }
-        catch(error)
-        {
-            console.log("\nAn error was thrown by calcBonus:",error)
-        }
-        
-    }    
-
 return(
         
-            <MainWrap>
-                
-                <InnerWrap>
-                    <Header2>{ systemName } [{ gameName }] Character Sheet</Header2>
-                    <InnerWrap invisflexRow>
-                        <ButtonStyle OptionButton onClick={() => set_systemName("3.5e")}>3.5e</ButtonStyle>
-                        <ButtonStyle OptionButton onClick={() => set_systemName("Pathfinder")}>Pathfinder</ButtonStyle>
-                        <ButtonStyle OptionButton onClick={() => set_systemName("5e")}>5e</ButtonStyle>
-                    </InnerWrap>
-                </InnerWrap>
+    <MainWrap>
+        
+        <InnerWrap flexRow>
+{/* GAME SYSTEM, SYSTEM VERSION */}
+            <Header2>{ systemName } [{ gameName }] Character Sheet</Header2>
+            <InnerWrap invisflexRow>
+                <ButtonStyle OptionButton onClick={() => set_systemName("3.5e")}>3.5e</ButtonStyle>
+                <ButtonStyle OptionButton onClick={() => set_systemName("Pathfinder")}>Pathfinder</ButtonStyle>
+                <ButtonStyle OptionButton onClick={() => set_systemName("5e")}>5e</ButtonStyle>
+            </InnerWrap>
+        </InnerWrap>
 
 <InnerWrap flexRow>
+{/* TRUTH TABLES */}
     <Header2>Truth Tables</Header2>
     <Spacer/>
 
@@ -167,9 +179,8 @@ return(
     </Table>
        
         <Splitter/>
-    
- 
-        <Table>
+
+    <Table>
     <tr><td colSpan = "2"><Header3>From "Character Info"</Header3></td></tr>
     {/* charLevel: 1,
             charProficiency: 0,
@@ -220,277 +231,291 @@ return(
 
 </InnerWrap>
 
-                <InnerWrap flexRow>
-                    
-                    <Spacer inputTopMargin="10px"/>
-                    <Header2>Character Basics</Header2>
-                    <Spacer inputBottomMargin="10px"/>
+<InnerWrap flexRow> 
+{/* CHARACTER BASICS */}                    
+    <Spacer inputTopMargin="10px"/>
+    <Header2>Character Basics</Header2>
+    <Spacer inputBottomMargin="10px"/>
 
-                <InnerWrap flexRow inputColor="rgba(200, 200, 100 ,0.2)" inputBorder="inset 3px black">
-                    <Engraving>
-                        Player Name: 
-                        <EngravingInput 
-                            type="text" 
-                            placeholder="Your real name"
-                            inputWidth="135px"
-                            onChange={(e) => set_playerName(e.target.value)}/>
-                    </Engraving>
-                    
-                    <Engraving>
-                        Character:
-                        <EngravingInput 
-                            type="text" 
-                            placeholder="Your characters name" 
-                            inputWidth="155px" 
-                            onChange={(e) => set_characterName(e.target.value)}/>
-                    </Engraving>
-                    
-                    <Engraving>
-                        Race:
-                        <EngravingInput 
-                            type= "text" 
-                            placeholder="Halfing, Tiefling etc?" 
-                            inputWidth="210px" 
-                            onChange={(e) => set_characterRace(e.target.value)}/>
-                    </Engraving>
-                </InnerWrap>
-                
-                <InnerWrap flexRow inputColor="rgba(200, 200, 100 ,0.2)" inputBorder="inset 3px black">
-                    <Engraving>
-                        Background:
-                        <EngravingInput 
-                        type= "text" 
-                        placeholder="Acolyte etc?" 
-                        inputWidth="136px" 
-                        onChange={(e) => set_characterBackground(e.target.value)}/>
-                    </Engraving>
-
-                    <Engraving>
-                        Alignment:
-                        <EngravingInput 
-                            type= "text" 
-                            placeholder="LG, TN, CE?" 
-                            inputWidth="152px" 
-                            onChange={(e) => set_characterAlignment(e.target.value)}/>
-                    </Engraving>
-                    
-                    <Engraving>
-                        Experience:
-                        <EngravingInput 
-                            type= "text" 
-                            placeholder="0" 
-                            inputWidth="155px" 
-                            onChange={(e) => set_characterExperience(e.target.value)}/>
-                    </Engraving>
-                </InnerWrap>
-
-                <Spacer/>
-                
-                <Header2>Character Attributes</Header2>
-
-                <Spacer inputBottomMargin="10px"/>
-{/* STRENGTH ATTRIBUTE */}                
-                <InnerWrap flexRow>
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charSTR" 
-                            value={charAttributes.charSTR} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charSTRmod}</>
-                        <Header4>STR</Header4>
-                    </AttributeFrame>
-{/* DEXTERITY ATTRIBUTE */}
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charDEX" 
-                            value={charAttributes.charDEX} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charDEXmod}</>
-                        <Header4>DEX</Header4>
-                    </AttributeFrame>
-{/* CONSTITUTION ATTRIBUTE */}
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charCON" 
-                            value={charAttributes.charCON} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charCONmod}</>
-                        <Header4>CON</Header4>
-                    </AttributeFrame>
-{/* INTELLIGENCE ATTRIBUTE */}
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charINT" 
-                            value={charAttributes.charINT} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charINTmod}</>
-                        <Header4>INT</Header4>
-                    </AttributeFrame>
-{/* WISDOM ATTRIBUTE */}
-                <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charWIS" 
-                            value={charAttributes.charWIS} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charWISmod}</>
-                        <Header4>WIS</Header4>
-                    </AttributeFrame>
-{/* CHARISMA ATTRIBUTE */}
-                <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <AttributeInput 
-                            type= "text" 
-                            name="charCHA" 
-                            value={charAttributes.charCHA} 
-                            onChange={(e) => handle_attr_Change(e.target)}/>
-                        <>{charAttributes.charCHAmod}</>
-                        <Header4>CHA</Header4>
-                    </AttributeFrame>
-                </InnerWrap>
-
-<InnerWrap flexRow>
-<Header4>Level</Header4>
-<Header4>Proficiency</Header4> 
-<Header4>Initiative</Header4> 
-<Header4>AC</Header4> 
-<Header4>HP</Header4> 
-<Header4>Passive Perception</Header4> 
-<Spacer inputBottomMargin="5px"/>
-{/* CHARACTER LEVEL */} 
-                    <AttributeFrame inputWidth="auto" inputHeight="auto">
-                        <InfoFrame inputWidth="40px" inputHeight="40px">
-                            <EngravingInput 
-                            type= "text"
-                            name="char"
-                            value={charInfo.charLevel}
-                            onChange={(e) => handle_info_Change(e.target)}
-                            inputWidth="35px" 
-                            inputHeight="35px" 
-                            inputBorderRadius="100%" 
-                            inputMargin="1px" />                            
-                        </InfoFrame>
-                        
-                    </AttributeFrame>
-{/* CHARACTER PROFICIENCY */}    
-                    <AttributeFrame 
-                        inputJustifyContent="center" 
-                        inputWidth="auto" 
-                        inputHeight="auto">
-                        <InfoFrame 
-                            inputWidth="40px" 
-                            inputHeight="40px">
-                            <EngravingDisplay
-                                name="char"
-                                inputWidth="35px" 
-                                inputHeight="35px" 
-                                inputBorderRadius="100%" 
-                                >                            
-                                {charInfo.charProficiency}
-                            </EngravingDisplay>
-                        </InfoFrame>
-                    </AttributeFrame>
-{/* CHARACTER INITIATIVE */}    
-<AttributeFrame 
-                        inputJustifyContent="center" 
-                        inputWidth="auto" 
-                        inputHeight="auto">
-                        <InfoFrame 
-                            inputWidth="40px" 
-                            inputHeight="40px">
-                            <EngravingDisplay
-                                name="char"
-                                inputWidth="35px" 
-                                inputHeight="35px" 
-                                inputBorderRadius="100%" 
-                                >                            
-                                {charInfo.charInitiative}
-                            </EngravingDisplay>
-                        </InfoFrame>
-                    </AttributeFrame>
-{/* CHARACTER AC */}    
-<AttributeFrame 
-                        inputJustifyContent="center" 
-                        inputWidth="auto" 
-                        inputHeight="auto"
-                        >
-                        <InfoFrame 
-                            inputWidth="40px" 
-                            inputHeight="40px"
-                            inputRadius="20px 20px 100px 100px">
-                            <EngravingDisplay
-                                name="char"
-                                inputWidth="35px" 
-                                inputHeight="35px" 
-                                inputBorderRadius="0px 0px 100px 100px" 
-                                
-                                >                            
-                                {charInfo.charAC}
-                            </EngravingDisplay>
-                        </InfoFrame>
-                    </AttributeFrame>
-{/* CHARACTER HP */}    
-<AttributeFrame 
-                        inputJustifyContent="center" 
-                        inputWidth="auto" 
-                        inputHeight="auto"
-                        >
-                        <InfoFrame 
-                            inputWidth="40px" 
-                            inputHeight="40px"
-                            inputRadius="20px 20px 100px 100px">
-                            <EngravingDisplay
-                                name="char"
-                                inputWidth="35px" 
-                                inputHeight="35px" 
-                                inputBorderRadius="0px 0px 100px 100px" 
-                                
-                                >                            
-                                {charInfo.charHP}
-                            </EngravingDisplay>
-                        </InfoFrame>
-                    </AttributeFrame>
-{/* CHARACTER Passive Perception */}    
-<AttributeFrame 
-                        inputJustifyContent="center" 
-                        inputWidth="auto" 
-                        inputHeight="auto"
-                        >
-                        <InfoFrame 
-                            inputWidth="40px" 
-                            inputHeight="40px"
-                            inputRadius="20px 20px 100px 100px">
-                            <EngravingDisplay
-                                name="char"
-                                inputWidth="35px" 
-                                inputHeight="35px" 
-                                inputBorderRadius="0px 0px 100px 100px" 
-                                
-                                >                            
-                                {charInfo.charPassPerc}
-                            </EngravingDisplay>
-                        </InfoFrame>
-                    </AttributeFrame>
-
-                </InnerWrap>                
-            </InnerWrap>
-
-
-                
-    
-                
-                <InnerWrap flexRow>
-                    [I contain the skills table]
-
-                </InnerWrap>
-
-            </MainWrap>
+{/* PLAYER NAME, CHARACTER, RACE, CLASS, LEVEL */}
+    <InnerWrap flexRow inputWidth="95%" >
+        <Engraving>
+            Player Name: 
+            <EngravingInput 
+                type="text" 
+                placeholder="Your real name"
+                inputWidth="135px"
+                onChange={(e) => set_playerName(e.target.value)}/>
+        </Engraving>
         
-    )
+        <Engraving>
+            Character:
+            <EngravingInput 
+                type="text" 
+                placeholder="Your characters name" 
+                inputWidth="155px" 
+                onChange={(e) => set_characterName(e.target.value)}/>
+        </Engraving>
+        
+        <Engraving>
+            Race:
+            <EngravingInput 
+                type= "text" 
+                placeholder="Halfing, Tiefling etc?" 
+                inputWidth="210px" 
+                onChange={(e) => set_characterRace(e.target.value)}/>
+        </Engraving>
 
+        <Engraving>
+            Class:
+            <EngravingInput 
+                type= "text" 
+                placeholder="Fighter, Sorcerer etc?" 
+                inputWidth="210px" 
+                onChange={(e) => set_characterRace(e.target.value)}/>
+        </Engraving>
+    
+{/* BACKGROUND, ALIGNMENT, EXPERIENCE */}                
+    
+        <Engraving>
+            Background:
+            <EngravingInput 
+            type= "text" 
+            placeholder="Acolyte etc?" 
+            inputWidth="136px" 
+            onChange={(e) => set_characterBackground(e.target.value)}/>
+        </Engraving>
+
+        <Engraving>
+            Alignment:
+            <EngravingInput 
+                type= "text" 
+                placeholder="LG, TN, CE?" 
+                inputWidth="152px" 
+                onChange={(e) => set_characterAlignment(e.target.value)}/>
+        </Engraving>
+        
+        <Engraving>
+            Experience:
+            <EngravingInput 
+                type= "text" 
+                placeholder="0" 
+                inputWidth="155px" 
+                onChange={(e) => set_characterExperience(e.target.value)}/>
+        </Engraving>
+    </InnerWrap>
+
+        <Spacer/>
+
+    <Header2>Character Attributes</Header2>
+
+    <Spacer inputBottomMargin="10px"/>
+
+    <InnerWrap flexRow inputHeight="150px">
+        
+    <Header4>Attributes</Header4>
+
+    <Spacer inputBottomMargin="10px"/>                    
+{/* STRENGTH ATTRIBUTE */}   
+        <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charSTR" 
+                value={charAttributes.charSTR} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charSTRmod}</>
+            <Header4>STR</Header4>
+        </AttributeFrame>
+{/* DEXTERITY ATTRIBUTE */}
+        <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charDEX" 
+                value={charAttributes.charDEX} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charDEXmod}</>
+            <Header4>DEX</Header4>
+        </AttributeFrame>
+{/* CONSTITUTION ATTRIBUTE */}
+        <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charCON" 
+                value={charAttributes.charCON} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charCONmod}</>
+            <Header4>CON</Header4>
+        </AttributeFrame>
+{/* INTELLIGENCE ATTRIBUTE */}
+        <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charINT" 
+                value={charAttributes.charINT} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charINTmod}</>
+            <Header4>INT</Header4>
+        </AttributeFrame>
+{/* WISDOM ATTRIBUTE */}
+    <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charWIS" 
+                value={charAttributes.charWIS} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charWISmod}</>
+            <Header4>WIS</Header4>
+        </AttributeFrame>
+{/* CHARISMA ATTRIBUTE */}
+    <AttributeFrame inputWidth="auto" inputHeight="auto">
+            <AttributeInput 
+                type= "text" 
+                name="charCHA" 
+                value={charAttributes.charCHA} 
+                onChange={(e) => handle_attr_Change(e.target)}/>
+            <>{charAttributes.charCHAmod}</>
+            <Header4>CHA</Header4>
+        </AttributeFrame>
+    </InnerWrap>
+
+    <InnerWrap flexRow inputHeight="150px">
+        <Splitter inputHeight = "45px"/>
+    <Header4>Level</Header4>
+        <Splitter inputHeight = "45px"/>
+    <Header4>Proficiency</Header4> 
+        <Splitter inputHeight = "45px"/>
+    <Header4>Initiative</Header4> 
+        <Splitter inputHeight = "45px"/>
+    <Header4>AC</Header4> 
+        <Splitter inputHeight = "45px"/>
+    <Header4>HP</Header4> 
+        <Splitter inputHeight = "45px"/>
+    <Header4>Passive<br/>Perception</Header4> 
+        <Splitter inputHeight = "45px"/>
+    <Spacer inputBottomMargin="5px"/>
+{/* CHARACTER LEVEL */} 
+    <AttributeFrame inputWidth="auto" inputHeight="auto">
+        <InfoFrame inputWidth="32px" inputHeight="32px">
+            <EngravingInput 
+            id="CharacterLevel"
+            type= "text"
+            name="char"
+            value={charInfo.charLevel}
+            onChange={(e) => handle_info_Change(e.target)}
+            inputWidth="30px" 
+            inputHeight="30px" 
+            inputBorderRadius="100%" 
+            inputMargin="1px" />                            
+        </InfoFrame>
+        
+    </AttributeFrame>
+                    
+{/* CHARACTER PROFICIENCY */}    
+    <AttributeFrame 
+                            inputJustifyContent="center" 
+                            inputWidth="auto" 
+                            inputHeight="auto">
+                            <InfoFrame 
+                                inputWidth="32px" 
+                                inputHeight="32px">
+                                <EngravingDisplay
+                                    name="char"
+                                    inputWidth="30px" 
+                                    inputHeight="30px" 
+                                    inputBorderRadius="100%" 
+                                    >                            
+                                    {charInfo.charProficiency}
+                                </EngravingDisplay>
+                            </InfoFrame>
+        </AttributeFrame>
+{/* CHARACTER INITIATIVE */}    
+    <AttributeFrame 
+                            inputJustifyContent="center" 
+                            inputWidth="auto" 
+                            inputHeight="auto">
+                            <InfoFrame 
+                                inputWidth="32px" 
+                                inputHeight="32px">
+                                <EngravingDisplay
+                                    name="char"
+                                    inputWidth="30px" 
+                                    inputHeight="30px" 
+                                    inputBorderRadius="100%" 
+                                    >                            
+                                    {charInfo.charInitiative}
+                                </EngravingDisplay>
+                            </InfoFrame>
+        </AttributeFrame>
+{/* CHARACTER AC */}    
+    <AttributeFrame 
+                            inputJustifyContent="center" 
+                            inputWidth="auto" 
+                            inputHeight="auto"
+                            >
+                            <InfoFrame 
+                                inputWidth="32px" 
+                                inputHeight="32px"
+                                inputRadius="20px 20px 100px 100px">
+                                <EngravingDisplay
+                                    name="char"
+                                    inputWidth="30px" 
+                                    inputHeight="30px" 
+                                    inputBorderRadius="0px 0px 100px 100px" 
+                                    
+                                    >                            
+                                    {charInfo.charAC}
+                                </EngravingDisplay>
+                            </InfoFrame>
+        </AttributeFrame>
+{/* CHARACTER HP */}    
+    <AttributeFrame 
+                            inputJustifyContent="center" 
+                            inputWidth="auto" 
+                            inputHeight="auto"
+                            >
+                            <InfoFrame 
+                                inputWidth="32px" 
+                                inputHeight="32px"
+                                inputRadius="20px 20px 100px 100px">
+                                <EngravingDisplay
+                                    name="char"
+                                    inputWidth="30px" 
+                                    inputHeight="30px" 
+                                    inputRadius="100%"
+                                    
+                                    >                            
+                                    {charInfo.charHP}
+                                </EngravingDisplay>
+                            </InfoFrame>
+        </AttributeFrame>
+{/* CHARACTER Passive Perception */}    
+    <AttributeFrame 
+                            inputJustifyContent="center" 
+                            inputWidth="auto" 
+                            inputHeight="auto"
+                            >
+                            <InfoFrame 
+                                inputWidth="32px" 
+                                inputHeight="32px"
+                                inputRadius="100%">
+                                <EngravingDisplay
+                                    name="char"
+                                    inputWidth="30px" 
+                                    inputHeight="30px" 
+                                    inputBorderRadius="0px 0px 100px 100px" 
+                                    >                            
+                                    {charInfo.charPassPerc}
+                                </EngravingDisplay>
+                            </InfoFrame>
+        </AttributeFrame>
+
+    </InnerWrap>                
+</InnerWrap>
+    <InnerWrap flexRow>
+        [I contain the skills table]
+    </InnerWrap>
+</MainWrap>
+    )
 };
 
 export default Character_Sheet;
