@@ -17,7 +17,7 @@ export const PairWrapper =styled.div`
 //=========================GENERIC WRAPPERS=========================
   //MainWrap is meant to wrap other items as a panel
 export const MainWrap = styled.div`
-    background: grey;
+    background: rgba(105,16,1);
     border: solid 2px rgba(150,90,85,0.7);
     border-radius: 8px;
 
@@ -171,6 +171,10 @@ export const Engraving = styled.div`
     width: 290px;
 
     text-align: center;
+
+    &: hover {
+        background: rgba(70, 70, 70, 0.2)
+    }
 `;
 
 //Element to contain attributes (two numbers, stacked in a column)

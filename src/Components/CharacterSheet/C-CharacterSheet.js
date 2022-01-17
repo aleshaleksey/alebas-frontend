@@ -34,17 +34,17 @@ const Character_Sheet = () => {
     const [characterAlignment, set_characterAlignment] = useState("");
     const [characterExperience, set_characterExperience] = useState(0);
 
-    const [charEssentials, set_CharEssentials] = useState(
-        {
-            charPlayerName: "",
-            charCharacter: "",
-            charRace: "",
-            charClass: "",
-            charLevel: 0,
-            charBackground: "",
-            charAlignment: "",
-            charExperience: 0,
-        });
+    // const [charEssentials, set_CharEssentials] = useState(
+    //     {
+    //         charPlayerName: "",
+    //         charCharacter: "",
+    //         charRace: "",
+    //         charClass: "",
+    //         charLevel: 0,
+    //         charBackground: "",
+    //         charAlignment: "",
+    //         charExperience: 0,
+    //     });
 
     //useState for attributes and associated bonuses
     const [charAttributes, set_CharAttributes] = useState(
@@ -85,19 +85,20 @@ const Character_Sheet = () => {
                 [t.name+"mod"]: Math.floor(((value)-10)/2)
             }
         );
+    }
 
     //function to handle changes to the 'charAttribute' useStates as it uses multiple states
-    const handle_attr_Change = (t) => {
-        let value = t.value;
-        set_CharAttributes(
-            {
-                ...charAttributes,
-                [t.name]: value,
-                [t.name+"mod"]: Math.floor(((value)-10)/2)
-            }
-        );
+    // const handle_esse_Change = (t) => {
+    //     let value = t.value;
+    //     set_CharEssentials(
+    //         {
+    //             ...charEssentials,
+    //             [t.name]: value,
+    //             [t.name+"mod"]: Math.floor(((value)-10)/2)
+    //         }
+    //     );
+    // }
 
-    }
 //function to handle changes to the 'charInfo' useStates as it uses multiple states
     const handle_info_Change = (i) => {
         let value = i.value;
@@ -111,7 +112,7 @@ const Character_Sheet = () => {
                 [i.name+"Proficiency"]: Math.floor(2+((value -1)/4)),
                 [i.name+"Initiative"]: (charAttributes.charDEXmod),
                 [i.name+"AC"]: (10 + (charAttributes.charDEXmod)),
-                [i.name+"HP"]: (10 * (value)),
+                [i.name+"HP"]: (8 * (value)),
                 [i.name+"PassPerc"]: (10 + (charAttributes.charWISmod)),
             }
         );
@@ -243,9 +244,11 @@ return(
             Player Name: 
             <EngravingInput 
                 type="text" 
+                id="PLRN"
                 placeholder="Your real name"
                 inputWidth="135px"
-                onChange={(e) => set_playerName(e.target.value)}/>
+                onChange={(e) => set_playerName(e.target.value)}
+                />
         </Engraving>
         
         <Engraving>
@@ -272,8 +275,20 @@ return(
                 type= "text" 
                 placeholder="Fighter, Sorcerer etc?" 
                 inputWidth="210px" 
-                onChange={(e) => set_characterRace(e.target.value)}/>
+                // onChange={(e) => set_characterRace(e.target.value)}
+                />
         </Engraving>
+
+        <Engraving>
+            Level:
+            <EngravingInput 
+                type= "text" 
+                placeholder="Peaseant or God?" 
+                inputWidth="210px" 
+                // onChange={(e) => set_characterRace(e.target.value)}
+                />
+        </Engraving>
+    
     
 {/* BACKGROUND, ALIGNMENT, EXPERIENCE */}                
     
@@ -393,6 +408,7 @@ return(
     <Header4>Passive<br/>Perception</Header4> 
         <Splitter inputHeight = "45px"/>
     <Spacer inputBottomMargin="5px"/>
+
 {/* CHARACTER LEVEL */} 
     <AttributeFrame inputWidth="auto" inputHeight="auto">
         <InfoFrame inputWidth="32px" inputHeight="32px">
@@ -516,6 +532,7 @@ return(
     </InnerWrap>
 </MainWrap>
     )
+    
 };
 
 export default Character_Sheet;
