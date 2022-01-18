@@ -7,10 +7,12 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "react": "^17.0.2",
+    "webpackConfig": "./webpack.config.js",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "ws": "^8.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,6 +31,7 @@
       ">0.2%",
       "not dead",
       "not op_mini all"
+      
     ],
     "development": [
       "last 1 chrome version",

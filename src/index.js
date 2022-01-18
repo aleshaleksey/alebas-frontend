@@ -4,6 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//=================WEBSOCKET STUFF
+//create a var that requires a module
+  const WebSocket = require("ws");
+
+//create a var that has an instance of a web server
+  const wss = new WebSocket.Server({port: 8092});
+  
+//When connected, fire a message
+  wss.on("connection", ws => {
+  
+  console.log("New client connected!");
+})
+
+//=================RENDER STUFF
 ReactDOM.render(
   <React.StrictMode>
     <App />
